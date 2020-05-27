@@ -31,7 +31,7 @@ def get_args():
                         help="deep learning model",
                         choices=['lrcn', 'gve', 'sc'])
     parser.add_argument('--dataset', type=str, default='coco',
-                        choices=['coco', 'cub'])
+                        choices=['coco', 'cub', 'iu'])
     parser.add_argument('--pretrained-model', type=str, default='vgg16',
                         help="[LRCN] name of pretrained model for image features",
                         choices=PretrainedModel.SUPPORTED_MODEL_NAMES)
@@ -66,8 +66,8 @@ def get_args():
     del arg_vars["eval"]
 
     # GVE currently does not support pretrained models
-    if arg_vars["model"] == "gve":
-        arg_vars["pretrained_model"] = None
+    #  if arg_vars["model"] == "gve":
+        #  arg_vars["pretrained_model"] = None
 
     if args.torch_seed is not None:
         torch.manual_seed(arg_vars["torch_seed"])

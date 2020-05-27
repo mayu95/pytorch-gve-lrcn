@@ -21,9 +21,14 @@ class LRCN(nn.Module):
             img_feat_size = self.vision_model.output_size
             input_size = self.vision_model.input_size
             self.has_vision_model = True
+        #  print('img_feat_size:', img_feat_size)
+        #  print('input_size:', input_size)
+        #  print(self.has_vision_model)
+        #  exit(0)
         self.word_embed = nn.Embedding(vocab_size, word_embed_size, padding_idx=0)
 
         lstm1_input_size = word_embed_size
+        print('embed_size:', word_embed_size)
         lstm2_input_size = 2*hidden_size
 
         self.linear1 = nn.Linear(img_feat_size, hidden_size)
@@ -56,6 +61,10 @@ class LRCN(nn.Module):
             image_features = self.vision_model(image_inputs)
         else:
             image_features = image_inputs
+        #  image_features = self.vision_model(image_inputs)
+        #  print('image_inputs size:', image_inputs.size())
+        #  print('image_features size:', image_features.size())
+        #  exit(0)
         image_features = self.linear1(image_features)
         image_features = F.relu(image_features)
         image_features = F.dropout(image_features, p=self.dropout_prob, training=self.training)

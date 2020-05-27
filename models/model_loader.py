@@ -39,7 +39,10 @@ class ModelLoader:
             param.requires_grad = False
         sc.eval()
 
-        gve = GVE(input_size, embedding_size, hidden_size, vocab_size, sc,
+        #  gve = GVE(input_size, embedding_size, hidden_size, vocab_size, sc,
+                #  num_classes)
+        pretrained_model = self.args.pretrained_model
+        gve = GVE(pretrained_model, embedding_size, hidden_size, vocab_size, sc,
                 num_classes)
 
         if self.args.weights_ckpt:

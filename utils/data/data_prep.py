@@ -8,6 +8,7 @@ import torchvision.transforms as transforms
 # Local packages
 from .coco_dataset import CocoDataset
 from .cub_dataset import CubDataset
+from .iu_dataset import IUDataset
 from utils.transform import get_transform
 
 class DataPreparation:
@@ -16,6 +17,8 @@ class DataPreparation:
             self.DatasetClass = CocoDataset
         elif dataset_name == 'cub':
             self.DatasetClass = CubDataset
+        elif dataset_name == 'iu':
+            self.DatasetClass = IUDataset
         self.data_path = os.path.join(data_path, self.DatasetClass.dataset_prefix)
 
     def get_dataset(self, split='train', vision_model=None, vocab=None,

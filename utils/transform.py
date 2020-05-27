@@ -4,7 +4,8 @@ def get_transform(net, train=True):
 
     if net is None:
         transform = None
-    elif net.startswith('vgg'):
+    #  elif net.startswith('vgg'):
+    elif net.startswith('vgg') or net.startswith('resnet'):
         if train:
             transform = transforms.Compose([transforms.Resize(256),
                                             transforms.RandomCrop(224),
