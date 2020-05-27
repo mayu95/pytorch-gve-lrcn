@@ -133,3 +133,28 @@ optional arguments:
 2. Hendricks L.A., Akata Z., Rohrbach M., Donahue J., Schiele B., Darrell T., "Generating Visual Explanations", European Conference on Computer Vision (ECCV), 2016
 3. Lin T.Y., Maire M., Belongie S. et al., "Microsoft COCO: Common Objects in Context", European Conference in Computer Vision (ECCV), 2014.
 4. Wah C., Branson S., Welinder P., Perona P., Belongie S., "The Caltech-UCSD Birds-200-2011 Dataset." Computation & Neural Systems Technical Report, CNS-TR-2011-001.
+
+
+# Above is the previous readme
+new: add iu dataset
+
+## Dataset
+This implementation selected 17 unique tags from iu dataset and restructed them into cub dataset form.
+see data/iu/
+
+## Usage
+Train GVE on IU
+* To train GVE on IU  we first need a sentence classifier:
+```
+python main.py --model sc --dataset iu
+```
+* Copy the saved model to the default path (or change the path to your model file) and then run the GVE training:
+```
+cp ./checkpoints/sc-iu-D<date>-T<time>-G<GPUid>/best-ckpt.pth ./data/iu/sentence_classifier_ckpt.pth
+python main.py --model gve --dataset iu --sc-ckpt ./data/iu/sentence_classifier_ckpt.pth
+```
+
+### Default parameters
+```
+same to cub
+```
