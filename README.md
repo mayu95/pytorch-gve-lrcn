@@ -143,7 +143,10 @@ This implementation selected 17 unique tags from iu dataset and restructed them 
 see data/iu/
 
 ## Usage
-Train GVE on IU
+1. Set pretrained-model to IU or CUB
+* Open model/model_loader, line 44. Switch iu or cub
+
+2. Train GVE on IU
 * To train GVE on IU  we first need a sentence classifier:
 ```
 python main.py --model sc --dataset iu
@@ -157,4 +160,12 @@ python main.py --model gve --dataset iu --sc-ckpt ./data/iu/sentence_classifier_
 ### Default parameters
 ```
 same to cub
+ps: cub input size = image features = 8192
+```
+
+### All command line options
+```
+--dataset {coco,cub,iu}
+--pretrained-model   {resnet18,resnet34,resnet50,resnet101,resnet152,vgg11,vgg11_bn,vgg13,vgg13_bn,vgg16,vgg16_bn,vgg19_bn,vgg19}
+                          [LRCN] name of pretrained model for image features
 ```
