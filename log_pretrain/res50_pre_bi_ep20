@@ -1,0 +1,141 @@
+Arguments:
+data_path                     ./data
+checkpoint_path               ./checkpoints
+log_step                      10
+num_workers                   4
+disable_cuda                  False
+cuda_device                   0
+torch_seed                    10789387719632430097
+model                         sc
+dataset                       iu
+pretrained_model              resnet50
+layers_to_truncate            1
+sc_ckpt                       data/cub/sentence_classifier_ckpt.pth
+weights_ckpt                  None
+loss_lambda                   0.2
+embedding_size                1000
+hidden_size                   1000
+num_epochs                    20
+batch_size                    128
+learning_rate                 0.001
+train                         True
+eval_ckpt                     None
+
+Preparing Data ...
+loading annotations into memory...
+Done (t=0.05s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+
+Loading Model ...
+SentenceClassifier(
+  (word_embed): Embedding(978, 1000, padding_idx=0)
+  (lstm): LSTM(1000, 2000, batch_first=True, bidirectional=True)
+  (linear): Linear(in_features=4000, out_features=17, bias=True)
+) 
+
+Training ...
+Epoch [0/20], Step [0/23], Loss: 2.8145, Perplexity: 16.6856
+Epoch [0/20], Step [10/23], Loss: 1.3669, Perplexity: 3.9234
+Epoch [0/20], Step [20/23], Loss: 1.2658, Perplexity: 3.5459
+Epoch [0/20], Step [0/3]
+Evaluation Accuracy: 0.7178082191780822
+Epoch [1/20], Step [0/23], Loss: 1.1431, Perplexity: 3.1364
+Epoch [1/20], Step [10/23], Loss: 0.9204, Perplexity: 2.5103
+Epoch [1/20], Step [20/23], Loss: 1.0131, Perplexity: 2.7542
+Epoch [1/20], Step [0/3]
+Evaluation Accuracy: 0.7616438356164383
+Epoch [2/20], Step [0/23], Loss: 0.9258, Perplexity: 2.5239
+Epoch [2/20], Step [10/23], Loss: 0.7895, Perplexity: 2.2024
+Epoch [2/20], Step [20/23], Loss: 0.6848, Perplexity: 1.9835
+Epoch [2/20], Step [0/3]
+Evaluation Accuracy: 0.7890410958904109
+Epoch [3/20], Step [0/23], Loss: 0.8220, Perplexity: 2.2749
+Epoch [3/20], Step [10/23], Loss: 0.7562, Perplexity: 2.1301
+Epoch [3/20], Step [20/23], Loss: 0.5759, Perplexity: 1.7788
+Epoch [3/20], Step [0/3]
+Evaluation Accuracy: 0.8027397260273973
+Epoch [4/20], Step [0/23], Loss: 0.5772, Perplexity: 1.7810
+Epoch [4/20], Step [10/23], Loss: 0.7918, Perplexity: 2.2074
+Epoch [4/20], Step [20/23], Loss: 0.3982, Perplexity: 1.4891
+Epoch [4/20], Step [0/3]
+Evaluation Accuracy: 0.8383561643835616
+Epoch [5/20], Step [0/23], Loss: 0.3983, Perplexity: 1.4892
+Epoch [5/20], Step [10/23], Loss: 0.4855, Perplexity: 1.6250
+Epoch [5/20], Step [20/23], Loss: 0.2666, Perplexity: 1.3055
+Epoch [5/20], Step [0/3]
+Evaluation Accuracy: 0.8465753424657534
+Epoch [6/20], Step [0/23], Loss: 0.3137, Perplexity: 1.3685
+Epoch [6/20], Step [10/23], Loss: 0.3106, Perplexity: 1.3642
+Epoch [6/20], Step [20/23], Loss: 0.4879, Perplexity: 1.6289
+Epoch [6/20], Step [0/3]
+Evaluation Accuracy: 0.8684931506849315
+Epoch [7/20], Step [0/23], Loss: 0.4153, Perplexity: 1.5148
+Epoch [7/20], Step [10/23], Loss: 0.3584, Perplexity: 1.4311
+Epoch [7/20], Step [20/23], Loss: 0.3422, Perplexity: 1.4080
+Epoch [7/20], Step [0/3]
+Evaluation Accuracy: 0.8986301369863013
+Epoch [8/20], Step [0/23], Loss: 0.2301, Perplexity: 1.2587
+Epoch [8/20], Step [10/23], Loss: 0.3362, Perplexity: 1.3997
+Epoch [8/20], Step [20/23], Loss: 0.3410, Perplexity: 1.4063
+Epoch [8/20], Step [0/3]
+Evaluation Accuracy: 0.8876712328767123
+Epoch [9/20], Step [0/23], Loss: 0.2273, Perplexity: 1.2552
+Epoch [9/20], Step [10/23], Loss: 0.1862, Perplexity: 1.2047
+Epoch [9/20], Step [20/23], Loss: 0.2013, Perplexity: 1.2231
+Epoch [9/20], Step [0/3]
+Evaluation Accuracy: 0.9068493150684932
+Epoch [10/20], Step [0/23], Loss: 0.1772, Perplexity: 1.1939
+Epoch [10/20], Step [10/23], Loss: 0.1526, Perplexity: 1.1649
+Epoch [10/20], Step [20/23], Loss: 0.1964, Perplexity: 1.2170
+Epoch [10/20], Step [0/3]
+Evaluation Accuracy: 0.915068493150685
+Epoch [11/20], Step [0/23], Loss: 0.0611, Perplexity: 1.0630
+Epoch [11/20], Step [10/23], Loss: 0.1412, Perplexity: 1.1517
+Epoch [11/20], Step [20/23], Loss: 0.1513, Perplexity: 1.1634
+Epoch [11/20], Step [0/3]
+Evaluation Accuracy: 0.9315068493150684
+Epoch [12/20], Step [0/23], Loss: 0.1192, Perplexity: 1.1266
+Epoch [12/20], Step [10/23], Loss: 0.1126, Perplexity: 1.1192
+Epoch [12/20], Step [20/23], Loss: 0.2846, Perplexity: 1.3293
+Epoch [12/20], Step [0/3]
+Evaluation Accuracy: 0.9287671232876712
+Epoch [13/20], Step [0/23], Loss: 0.1851, Perplexity: 1.2033
+Epoch [13/20], Step [10/23], Loss: 0.1522, Perplexity: 1.1644
+Epoch [13/20], Step [20/23], Loss: 0.0418, Perplexity: 1.0427
+Epoch [13/20], Step [0/3]
+Evaluation Accuracy: 0.9671232876712329
+Epoch [14/20], Step [0/23], Loss: 0.0715, Perplexity: 1.0742
+Epoch [14/20], Step [10/23], Loss: 0.0229, Perplexity: 1.0232
+Epoch [14/20], Step [20/23], Loss: 0.0178, Perplexity: 1.0179
+Epoch [14/20], Step [0/3]
+Evaluation Accuracy: 0.9506849315068493
+Epoch [15/20], Step [0/23], Loss: 0.0823, Perplexity: 1.0857
+Epoch [15/20], Step [10/23], Loss: 0.0803, Perplexity: 1.0836
+Epoch [15/20], Step [20/23], Loss: 0.1201, Perplexity: 1.1277
+Epoch [15/20], Step [0/3]
+Evaluation Accuracy: 0.9753424657534246
+Epoch [16/20], Step [0/23], Loss: 0.0300, Perplexity: 1.0305
+Epoch [16/20], Step [10/23], Loss: 0.0609, Perplexity: 1.0628
+Epoch [16/20], Step [20/23], Loss: 0.0162, Perplexity: 1.0163
+Epoch [16/20], Step [0/3]
+Evaluation Accuracy: 0.9863013698630136
+Epoch [17/20], Step [0/23], Loss: 0.0655, Perplexity: 1.0677
+Epoch [17/20], Step [10/23], Loss: 0.0097, Perplexity: 1.0098
+Epoch [17/20], Step [20/23], Loss: 0.0094, Perplexity: 1.0094
+Epoch [17/20], Step [0/3]
+Evaluation Accuracy: 0.989041095890411
+Epoch [18/20], Step [0/23], Loss: 0.0190, Perplexity: 1.0192
+Epoch [18/20], Step [10/23], Loss: 0.0080, Perplexity: 1.0080
+Epoch [18/20], Step [20/23], Loss: 0.0067, Perplexity: 1.0067
+Epoch [18/20], Step [0/3]
+Evaluation Accuracy: 0.9917808219178083
+Epoch [19/20], Step [0/23], Loss: 0.0333, Perplexity: 1.0338
+Epoch [19/20], Step [10/23], Loss: 0.0084, Perplexity: 1.0085
+Epoch [19/20], Step [20/23], Loss: 0.0052, Perplexity: 1.0052
+Epoch [19/20], Step [0/3]
+Evaluation Accuracy: 0.989041095890411

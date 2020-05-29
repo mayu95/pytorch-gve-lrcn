@@ -1,0 +1,1602 @@
+Arguments:
+data_path                     ./data
+checkpoint_path               ./checkpoints
+log_step                      10
+num_workers                   4
+disable_cuda                  False
+cuda_device                   0
+torch_seed                    17890883825355286968
+model                         gve
+dataset                       iu
+pretrained_model              resnet50
+layers_to_truncate            1
+sc_ckpt                       ./data/iu/sentence_classifier_ckpt.pth
+weights_ckpt                  None
+loss_lambda                   0.2
+embedding_size                1000
+hidden_size                   1000
+num_epochs                    50
+batch_size                    128
+learning_rate                 0.001
+train                         True
+eval_ckpt                     None
+
+Preparing Data ...
+loading annotations into memory...
+Done (t=0.04s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+
+Loading Model ...
+embed_size: 1000
+GVE(
+  (vision_model): PretrainedModel(
+    (pretrained_model): ResNet(
+      (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+      (layer1): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+          (downsample): Sequential(
+            (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+      )
+      (layer2): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+      )
+      (layer3): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+          (downsample): Sequential(
+            (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (4): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (5): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+      )
+      (layer4): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+          (downsample): Sequential(
+            (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace)
+        )
+      )
+      (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+      (fc): Linear(in_features=2048, out_features=1000, bias=True)
+      (classifier): Sequential(
+        (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace)
+        (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        (4): Sequential(
+          (0): Bottleneck(
+            (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+            (downsample): Sequential(
+              (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): Bottleneck(
+            (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (2): Bottleneck(
+            (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+        )
+        (5): Sequential(
+          (0): Bottleneck(
+            (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+            (downsample): Sequential(
+              (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): Bottleneck(
+            (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (2): Bottleneck(
+            (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (3): Bottleneck(
+            (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+        )
+        (6): Sequential(
+          (0): Bottleneck(
+            (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+            (downsample): Sequential(
+              (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): Bottleneck(
+            (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (2): Bottleneck(
+            (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (3): Bottleneck(
+            (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (4): Bottleneck(
+            (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (5): Bottleneck(
+            (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+        )
+        (7): Sequential(
+          (0): Bottleneck(
+            (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+            (downsample): Sequential(
+              (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): Bottleneck(
+            (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+          (2): Bottleneck(
+            (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace)
+          )
+        )
+        (8): AdaptiveAvgPool2d(output_size=(1, 1))
+      )
+    )
+  )
+  (word_embed): Embedding(978, 1000, padding_idx=0)
+  (linear1): Linear(in_features=1000, out_features=1000, bias=True)
+  (lstm1): LSTM(1000, 1000, batch_first=True)
+  (lstm2): LSTM(2017, 1000, batch_first=True)
+  (linear2): Linear(in_features=1000, out_features=978, bias=True)
+  (sentence_classifier): SentenceClassifier(
+    (word_embed): Embedding(978, 1000, padding_idx=0)
+    (lstm): LSTM(1000, 2000, batch_first=True, bidirectional=True)
+    (linear): Linear(in_features=4000, out_features=17, bias=True)
+  )
+) 
+
+Training ...
+Epoch [0/50], Step [0/23], Loss: 9.2096, Perplexity: 9992.5273
+Epoch [0/50], Step [10/23], Loss: 6.4730, Perplexity: 647.3935
+Epoch [0/50], Step [20/23], Loss: 5.3527, Perplexity: 211.1727
+Epoch [0/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18187, 'reflen': 10832, 'guess': [18187, 17822, 17457, 17092], 'correct': [1605, 8, 0, 0]}
+ratio: 1.67900664697178
+Bleu_1: 0.088
+Bleu_2: 0.006
+Bleu_3: 0.000
+Bleu_4: 0.000
+computing METEOR score...
+METEOR: 0.040
+computing Rouge score...
+ROUGE_L: 0.098
+computing CIDEr score...
+CIDEr: 0.003
+dict_items([('Bleu_1', 0.08824984879308911), ('Bleu_2', 0.006293956815830883), ('Bleu_3', 1.3140925966282293e-08), ('Bleu_4', 1.9088475961997324e-11), ('METEOR', 0.03961378120375967), ('ROUGE_L', 0.09763758972986429), ('CIDEr', 0.0033698366782241615)])
+Epoch [1/50], Step [0/23], Loss: 4.9840, Perplexity: 146.0633
+Epoch [1/50], Step [10/23], Loss: 5.2395, Perplexity: 188.5745
+Epoch [1/50], Step [20/23], Loss: 5.0626, Perplexity: 158.0063
+Epoch [1/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18180, 'reflen': 10832, 'guess': [18180, 17815, 17450, 17085], 'correct': [1738, 448, 178, 0]}
+ratio: 1.6783604135892098
+Bleu_1: 0.096
+Bleu_2: 0.049
+Bleu_3: 0.029
+Bleu_4: 0.000
+computing METEOR score...
+METEOR: 0.053
+computing Rouge score...
+ROUGE_L: 0.109
+computing CIDEr score...
+CIDEr: 0.006
+dict_items([('Bleu_1', 0.09559955995599034), ('Bleu_2', 0.04903137136638125), ('Bleu_3', 0.029052993293674136), ('Bleu_4', 1.0945596068902194e-06), ('METEOR', 0.053008258205960154), ('ROUGE_L', 0.10902198059025926), ('CIDEr', 0.005953739608410804)])
+Epoch [2/50], Step [0/23], Loss: 5.4505, Perplexity: 232.8716
+Epoch [2/50], Step [10/23], Loss: 4.4354, Perplexity: 84.3842
+Epoch [2/50], Step [20/23], Loss: 4.3337, Perplexity: 76.2265
+Epoch [2/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9296, 'reflen': 10832, 'guess': [9296, 8931, 8566, 8201], 'correct': [4240, 1859, 800, 259]}
+ratio: 0.8581979320530965
+Bleu_1: 0.387
+Bleu_2: 0.261
+Bleu_3: 0.175
+Bleu_4: 0.110
+computing METEOR score...
+METEOR: 0.175
+computing Rouge score...
+ROUGE_L: 0.347
+computing CIDEr score...
+CIDEr: 0.224
+dict_items([('Bleu_1', 0.3866430786626269), ('Bleu_2', 0.26119509658077555), ('Bleu_3', 0.17545300802902591), ('Bleu_4', 0.10965766057519251), ('METEOR', 0.17477331744493949), ('ROUGE_L', 0.34682763331297195), ('CIDEr', 0.223835473276947)])
+Epoch [3/50], Step [0/23], Loss: 3.4980, Perplexity: 33.0477
+Epoch [3/50], Step [10/23], Loss: 3.6537, Perplexity: 38.6179
+Epoch [3/50], Step [20/23], Loss: 2.5417, Perplexity: 12.7009
+Epoch [3/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9509, 'reflen': 10832, 'guess': [9509, 9144, 8779, 8414], 'correct': [5079, 2234, 1138, 548]}
+ratio: 0.8778618906941582
+Bleu_1: 0.465
+Bleu_2: 0.314
+Bleu_3: 0.223
+Bleu_4: 0.159
+computing METEOR score...
+METEOR: 0.204
+computing Rouge score...
+ROUGE_L: 0.369
+computing CIDEr score...
+CIDEr: 0.408
+dict_items([('Bleu_1', 0.46474998902915493), ('Bleu_2', 0.3143193959378237), ('Bleu_3', 0.2233598963353624), ('Bleu_4', 0.15852304938426343), ('METEOR', 0.2037177974014455), ('ROUGE_L', 0.3686918162355355), ('CIDEr', 0.40831843765577913)])
+Epoch [4/50], Step [0/23], Loss: 2.8809, Perplexity: 17.8312
+Epoch [4/50], Step [10/23], Loss: 3.0621, Perplexity: 21.3734
+Epoch [4/50], Step [20/23], Loss: 2.3177, Perplexity: 10.1524
+Epoch [4/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11007, 'reflen': 10832, 'guess': [11007, 10642, 10277, 9912], 'correct': [5257, 2335, 1142, 559]}
+ratio: 1.0161558345641601
+Bleu_1: 0.478
+Bleu_2: 0.324
+Bleu_3: 0.227
+Bleu_4: 0.160
+computing METEOR score...
+METEOR: 0.220
+computing Rouge score...
+ROUGE_L: 0.344
+computing CIDEr score...
+CIDEr: 0.368
+dict_items([('Bleu_1', 0.47760516035245953), ('Bleu_2', 0.32371760633444235), ('Bleu_3', 0.22666134563646398), ('Bleu_4', 0.16008318842539257), ('METEOR', 0.2201453216244156), ('ROUGE_L', 0.3444990960953793), ('CIDEr', 0.3683326586945603)])
+Epoch [5/50], Step [0/23], Loss: 3.2233, Perplexity: 25.1113
+Epoch [5/50], Step [10/23], Loss: 3.8743, Perplexity: 48.1487
+Epoch [5/50], Step [20/23], Loss: 3.9714, Perplexity: 53.0607
+Epoch [5/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9827, 'reflen': 10832, 'guess': [9827, 9462, 9097, 8732], 'correct': [4149, 1942, 975, 461]}
+ratio: 0.9072193500737714
+Bleu_1: 0.381
+Bleu_2: 0.266
+Bleu_3: 0.190
+Bleu_4: 0.134
+computing METEOR score...
+METEOR: 0.171
+computing Rouge score...
+ROUGE_L: 0.323
+computing CIDEr score...
+CIDEr: 0.301
+dict_items([('Bleu_1', 0.38116016325319196), ('Bleu_2', 0.2657537526580373), ('Bleu_3', 0.1897652787427957), ('Bleu_4', 0.1343400855423974), ('METEOR', 0.17077923914393195), ('ROUGE_L', 0.3225638655963419), ('CIDEr', 0.30082833675085696)])
+Epoch [6/50], Step [0/23], Loss: 4.2401, Perplexity: 69.4131
+Epoch [6/50], Step [10/23], Loss: 4.1930, Perplexity: 66.2224
+Epoch [6/50], Step [20/23], Loss: 3.8681, Perplexity: 47.8507
+Epoch [6/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 10220, 'reflen': 10832, 'guess': [10220, 9855, 9490, 9125], 'correct': [4337, 1951, 1018, 503]}
+ratio: 0.9435007385523501
+Bleu_1: 0.400
+Bleu_2: 0.273
+Bleu_3: 0.196
+Bleu_4: 0.141
+computing METEOR score...
+METEOR: 0.174
+computing Rouge score...
+ROUGE_L: 0.329
+computing CIDEr score...
+CIDEr: 0.319
+dict_items([('Bleu_1', 0.39969788566137254), ('Bleu_2', 0.2730001641232011), ('Bleu_3', 0.19600488806339592), ('Bleu_4', 0.14061520544710177), ('METEOR', 0.17376365510299407), ('ROUGE_L', 0.32890714879354094), ('CIDEr', 0.3193678360225247)])
+Epoch [7/50], Step [0/23], Loss: 3.8959, Perplexity: 49.2020
+Epoch [7/50], Step [10/23], Loss: 3.1646, Perplexity: 23.6790
+Epoch [7/50], Step [20/23], Loss: 2.4852, Perplexity: 12.0039
+Epoch [7/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11314, 'reflen': 10832, 'guess': [11314, 10949, 10584, 10219], 'correct': [4323, 2053, 1109, 624]}
+ratio: 1.0444977843425918
+Bleu_1: 0.382
+Bleu_2: 0.268
+Bleu_3: 0.196
+Bleu_4: 0.146
+computing METEOR score...
+METEOR: 0.181
+computing Rouge score...
+ROUGE_L: 0.312
+computing CIDEr score...
+CIDEr: 0.421
+dict_items([('Bleu_1', 0.38209298214598), ('Bleu_2', 0.26766511772655077), ('Bleu_3', 0.19580408881155517), ('Bleu_4', 0.14632224810776653), ('METEOR', 0.18085336123750634), ('ROUGE_L', 0.3121332945800289), ('CIDEr', 0.4213148688331244)])
+Epoch [8/50], Step [0/23], Loss: 2.9212, Perplexity: 18.5642
+Epoch [8/50], Step [10/23], Loss: 2.8030, Perplexity: 16.4934
+Epoch [8/50], Step [20/23], Loss: 2.6986, Perplexity: 14.8584
+Epoch [8/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [2691, 1319, 786, 384]}
+ratio: 1.684822747414911
+Bleu_1: 0.147
+Bleu_2: 0.104
+Bleu_3: 0.079
+Bleu_4: 0.057
+computing METEOR score...
+METEOR: 0.092
+computing Rouge score...
+ROUGE_L: 0.177
+computing CIDEr score...
+CIDEr: 0.007
+dict_items([('Bleu_1', 0.14745205479451245), ('Bleu_2', 0.10428055646949447), ('Bleu_3', 0.07872240885294148), ('Bleu_4', 0.05748557854747189), ('METEOR', 0.09163802470134262), ('ROUGE_L', 0.17686009423288926), ('CIDEr', 0.006524933478874165)])
+Epoch [9/50], Step [0/23], Loss: 2.6700, Perplexity: 14.4400
+Epoch [9/50], Step [10/23], Loss: 2.5199, Perplexity: 12.4273
+Epoch [9/50], Step [20/23], Loss: 2.8242, Perplexity: 16.8474
+Epoch [9/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 12851, 'reflen': 10832, 'guess': [12851, 12486, 12121, 11756], 'correct': [4726, 1974, 1075, 541]}
+ratio: 1.186392171344056
+Bleu_1: 0.368
+Bleu_2: 0.241
+Bleu_3: 0.173
+Bleu_4: 0.124
+computing METEOR score...
+METEOR: 0.182
+computing Rouge score...
+ROUGE_L: 0.300
+computing CIDEr score...
+CIDEr: 0.252
+dict_items([('Bleu_1', 0.3677534822192539), ('Bleu_2', 0.24112392570899133), ('Bleu_3', 0.17276278966873304), ('Bleu_4', 0.12411437311066809), ('METEOR', 0.18185762288253404), ('ROUGE_L', 0.2997674460911307), ('CIDEr', 0.2515160820775441)])
+Epoch [10/50], Step [0/23], Loss: 2.7150, Perplexity: 15.1054
+Epoch [10/50], Step [10/23], Loss: 2.7984, Perplexity: 16.4185
+Epoch [10/50], Step [20/23], Loss: 3.0536, Perplexity: 21.1921
+Epoch [10/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 15774, 'reflen': 10832, 'guess': [15774, 15409, 15044, 14679], 'correct': [4474, 2136, 1140, 553]}
+ratio: 1.4562407680944003
+Bleu_1: 0.284
+Bleu_2: 0.198
+Bleu_3: 0.144
+Bleu_4: 0.103
+computing METEOR score...
+METEOR: 0.170
+computing Rouge score...
+ROUGE_L: 0.276
+computing CIDEr score...
+CIDEr: 0.070
+dict_items([('Bleu_1', 0.28363129199947484), ('Bleu_2', 0.19828527695036238), ('Bleu_3', 0.14389338228494508), ('Bleu_4', 0.10292900652516015), ('METEOR', 0.17036534882594428), ('ROUGE_L', 0.27569608556709824), ('CIDEr', 0.06952802832633947)])
+Epoch [11/50], Step [0/23], Loss: 3.3878, Perplexity: 29.5999
+Epoch [11/50], Step [10/23], Loss: 2.8237, Perplexity: 16.8391
+Epoch [11/50], Step [20/23], Loss: 3.4572, Perplexity: 31.7289
+Epoch [11/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11680, 'reflen': 10832, 'guess': [11680, 11315, 10950, 10585], 'correct': [4073, 1936, 1017, 460]}
+ratio: 1.078286558345543
+Bleu_1: 0.349
+Bleu_2: 0.244
+Bleu_3: 0.177
+Bleu_4: 0.125
+computing METEOR score...
+METEOR: 0.151
+computing Rouge score...
+ROUGE_L: 0.296
+computing CIDEr score...
+CIDEr: 0.305
+dict_items([('Bleu_1', 0.3487157534246277), ('Bleu_2', 0.24426496530830527), ('Bleu_3', 0.17696052520527275), ('Bleu_4', 0.12457303381750527), ('METEOR', 0.1514736871750766), ('ROUGE_L', 0.29605645166774247), ('CIDEr', 0.3051279987895367)])
+Epoch [12/50], Step [0/23], Loss: 3.0019, Perplexity: 20.1242
+Epoch [12/50], Step [10/23], Loss: 2.5409, Perplexity: 12.6909
+Epoch [12/50], Step [20/23], Loss: 2.0785, Perplexity: 7.9923
+Epoch [12/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9125, 'reflen': 10832, 'guess': [9125, 8760, 8395, 8030], 'correct': [3276, 1397, 789, 383]}
+ratio: 0.8424113737074554
+Bleu_1: 0.298
+Bleu_2: 0.198
+Bleu_3: 0.145
+Bleu_4: 0.105
+computing METEOR score...
+METEOR: 0.129
+computing Rouge score...
+ROUGE_L: 0.269
+computing CIDEr score...
+CIDEr: 0.142
+dict_items([('Bleu_1', 0.29776126829937977), ('Bleu_2', 0.19845353790418033), ('Bleu_3', 0.1453372906508094), ('Bleu_4', 0.10497669568711927), ('METEOR', 0.12907745178938834), ('ROUGE_L', 0.26852297780286716), ('CIDEr', 0.14180525401294503)])
+Epoch [13/50], Step [0/23], Loss: 2.1447, Perplexity: 8.5399
+Epoch [13/50], Step [10/23], Loss: 2.5779, Perplexity: 13.1696
+Epoch [13/50], Step [20/23], Loss: 2.5902, Perplexity: 13.3320
+Epoch [13/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 10225, 'reflen': 10832, 'guess': [10225, 9860, 9495, 9130], 'correct': [4613, 1861, 797, 242]}
+ratio: 0.9439623338256145
+Bleu_1: 0.425
+Bleu_2: 0.275
+Bleu_3: 0.182
+Bleu_4: 0.111
+computing METEOR score...
+METEOR: 0.188
+computing Rouge score...
+ROUGE_L: 0.307
+computing CIDEr score...
+CIDEr: 0.247
+dict_items([('Bleu_1', 0.42514644177233424), ('Bleu_2', 0.2749876621221242), ('Bleu_3', 0.18152483897817773), ('Bleu_4', 0.11055866728850111), ('METEOR', 0.18826654859335298), ('ROUGE_L', 0.306839344434851), ('CIDEr', 0.24670287529494886)])
+Epoch [14/50], Step [0/23], Loss: 2.6270, Perplexity: 13.8329
+Epoch [14/50], Step [10/23], Loss: 2.6411, Perplexity: 14.0287
+Epoch [14/50], Step [20/23], Loss: 2.9691, Perplexity: 19.4740
+Epoch [14/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9534, 'reflen': 10832, 'guess': [9534, 9169, 8804, 8439], 'correct': [4137, 1653, 756, 274]}
+ratio: 0.8801698670604801
+Bleu_1: 0.379
+Bleu_2: 0.244
+Bleu_3: 0.165
+Bleu_4: 0.106
+computing METEOR score...
+METEOR: 0.173
+computing Rouge score...
+ROUGE_L: 0.298
+computing CIDEr score...
+CIDEr: 0.179
+dict_items([('Bleu_1', 0.3786898317382432), ('Bleu_2', 0.2440921977721615), ('Bleu_3', 0.1646673927753949), ('Bleu_4', 0.10605689752618871), ('METEOR', 0.17302222612368173), ('ROUGE_L', 0.29753456560992775), ('CIDEr', 0.17903139827684775)])
+Epoch [15/50], Step [0/23], Loss: 2.6739, Perplexity: 14.4964
+Epoch [15/50], Step [10/23], Loss: 2.4513, Perplexity: 11.6029
+Epoch [15/50], Step [20/23], Loss: 1.7529, Perplexity: 5.7715
+Epoch [15/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9490, 'reflen': 10832, 'guess': [9490, 9125, 8760, 8395], 'correct': [3960, 1402, 789, 353]}
+ratio: 0.8761078286557537
+Bleu_1: 0.362
+Bleu_2: 0.220
+Bleu_3: 0.156
+Bleu_4: 0.108
+computing METEOR score...
+METEOR: 0.161
+computing Rouge score...
+ROUGE_L: 0.291
+computing CIDEr score...
+CIDEr: 0.170
+dict_items([('Bleu_1', 0.3622551069570923), ('Bleu_2', 0.21981513930388), ('Bleu_3', 0.15574874178972614), ('Bleu_4', 0.10836855868137807), ('METEOR', 0.16083676242318365), ('ROUGE_L', 0.29135490519864476), ('CIDEr', 0.17048984076364782)])
+Epoch [16/50], Step [0/23], Loss: 1.8141, Perplexity: 6.1358
+Epoch [16/50], Step [10/23], Loss: 1.7131, Perplexity: 5.5460
+Epoch [16/50], Step [20/23], Loss: 1.6675, Perplexity: 5.2990
+Epoch [16/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9125, 'reflen': 10832, 'guess': [9125, 8760, 8395, 8030], 'correct': [3732, 1367, 760, 343]}
+ratio: 0.8424113737074554
+Bleu_1: 0.339
+Bleu_2: 0.210
+Bleu_3: 0.149
+Bleu_4: 0.104
+computing METEOR score...
+METEOR: 0.155
+computing Rouge score...
+ROUGE_L: 0.286
+computing CIDEr score...
+CIDEr: 0.150
+dict_items([('Bleu_1', 0.33920789172566707), ('Bleu_2', 0.20952882177112436), ('Bleu_3', 0.1488261360576972), ('Bleu_4', 0.10395451221433026), ('METEOR', 0.1553377461256374), ('ROUGE_L', 0.28602626767354145), ('CIDEr', 0.14958882175035879)])
+Epoch [17/50], Step [0/23], Loss: 1.5357, Perplexity: 4.6445
+Epoch [17/50], Step [10/23], Loss: 1.3744, Perplexity: 3.9526
+Epoch [17/50], Step [20/23], Loss: 1.2653, Perplexity: 3.5443
+Epoch [17/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9490, 'reflen': 10832, 'guess': [9490, 9125, 8760, 8395], 'correct': [3652, 1334, 623, 187]}
+ratio: 0.8761078286557537
+Bleu_1: 0.334
+Bleu_2: 0.206
+Bleu_3: 0.138
+Bleu_4: 0.084
+computing METEOR score...
+METEOR: 0.145
+computing Rouge score...
+ROUGE_L: 0.274
+computing CIDEr score...
+CIDEr: 0.120
+dict_items([('Bleu_1', 0.33407970974931844), ('Bleu_2', 0.2059108823848963), ('Bleu_3', 0.13781908461255474), ('Bleu_4', 0.08434971763285741), ('METEOR', 0.14532703022317242), ('ROUGE_L', 0.27444658725622534), ('CIDEr', 0.11968585050833466)])
+Epoch [18/50], Step [0/23], Loss: 1.4244, Perplexity: 4.1552
+Epoch [18/50], Step [10/23], Loss: 1.5070, Perplexity: 4.5130
+Epoch [18/50], Step [20/23], Loss: 1.6357, Perplexity: 5.1331
+Epoch [18/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11698, 'reflen': 10832, 'guess': [11698, 11333, 10968, 10603], 'correct': [4201, 1727, 803, 354]}
+ratio: 1.0799483013292945
+Bleu_1: 0.359
+Bleu_2: 0.234
+Bleu_3: 0.159
+Bleu_4: 0.108
+computing METEOR score...
+METEOR: 0.165
+computing Rouge score...
+ROUGE_L: 0.289
+computing CIDEr score...
+CIDEr: 0.189
+dict_items([('Bleu_1', 0.3591212173020722), ('Bleu_2', 0.2339344900876616), ('Bleu_3', 0.15882744109405555), ('Bleu_4', 0.10754439465529345), ('METEOR', 0.16469646587450454), ('ROUGE_L', 0.28866817486913454), ('CIDEr', 0.1893002532029465)])
+Epoch [19/50], Step [0/23], Loss: 1.6282, Perplexity: 5.0948
+Epoch [19/50], Step [10/23], Loss: 1.6558, Perplexity: 5.2374
+Epoch [19/50], Step [20/23], Loss: 2.3818, Perplexity: 10.8244
+Epoch [19/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 10603, 'reflen': 10832, 'guess': [10603, 10238, 9873, 9508], 'correct': [4832, 1654, 755, 226]}
+ratio: 0.9788589364844
+Bleu_1: 0.446
+Bleu_2: 0.266
+Bleu_3: 0.174
+Bleu_4: 0.105
+computing METEOR score...
+METEOR: 0.192
+computing Rouge score...
+ROUGE_L: 0.305
+computing CIDEr score...
+CIDEr: 0.208
+dict_items([('Bleu_1', 0.44598311770821614), ('Bleu_2', 0.2655397408602625), ('Bleu_3', 0.17409743578111164), ('Bleu_4', 0.10525776913669195), ('METEOR', 0.19209287966439467), ('ROUGE_L', 0.30488342926979567), ('CIDEr', 0.2083936979990536)])
+Epoch [20/50], Step [0/23], Loss: 1.9954, Perplexity: 7.3552
+Epoch [20/50], Step [10/23], Loss: 1.5703, Perplexity: 4.8081
+Epoch [20/50], Step [20/23], Loss: 1.5597, Perplexity: 4.7573
+Epoch [20/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 9125, 'reflen': 10832, 'guess': [9125, 8760, 8395, 8030], 'correct': [4083, 1419, 728, 323]}
+ratio: 0.8424113737074554
+Bleu_1: 0.371
+Bleu_2: 0.223
+Bleu_3: 0.153
+Bleu_4: 0.105
+computing METEOR score...
+METEOR: 0.164
+computing Rouge score...
+ROUGE_L: 0.301
+computing CIDEr score...
+CIDEr: 0.144
+dict_items([('Bleu_1', 0.37111088475774345), ('Bleu_2', 0.22329015939351246), ('Bleu_3', 0.15306257337512189), ('Bleu_4', 0.1045834101309622), ('METEOR', 0.1643244327565044), ('ROUGE_L', 0.3011591542337917), ('CIDEr', 0.14353492547957566)])
+Epoch [21/50], Step [0/23], Loss: 1.4148, Perplexity: 4.1155
+Epoch [21/50], Step [10/23], Loss: 1.5370, Perplexity: 4.6507
+Epoch [21/50], Step [20/23], Loss: 2.0585, Perplexity: 7.8342
+Epoch [21/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11536, 'reflen': 10832, 'guess': [11536, 11171, 10806, 10441], 'correct': [4358, 1574, 764, 325]}
+ratio: 1.0649926144755295
+Bleu_1: 0.378
+Bleu_2: 0.231
+Bleu_3: 0.156
+Bleu_4: 0.104
+computing METEOR score...
+METEOR: 0.162
+computing Rouge score...
+ROUGE_L: 0.286
+computing CIDEr score...
+CIDEr: 0.189
+dict_items([('Bleu_1', 0.37777392510398944), ('Bleu_2', 0.2307131386227292), ('Bleu_3', 0.15554558312008132), ('Bleu_4', 0.1040347861607111), ('METEOR', 0.16246218519571215), ('ROUGE_L', 0.2859261361303906), ('CIDEr', 0.18880339146877992)])
+Epoch [22/50], Step [0/23], Loss: 1.7251, Perplexity: 5.6133
+Epoch [22/50], Step [10/23], Loss: 2.2768, Perplexity: 9.7451
+Epoch [22/50], Step [20/23], Loss: 1.4443, Perplexity: 4.2390
+Epoch [22/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16954, 'reflen': 10832, 'guess': [16954, 16589, 16224, 15859], 'correct': [3030, 1407, 679, 215]}
+ratio: 1.565177252584789
+Bleu_1: 0.179
+Bleu_2: 0.123
+Bleu_3: 0.086
+Bleu_4: 0.054
+computing METEOR score...
+METEOR: 0.109
+computing Rouge score...
+ROUGE_L: 0.190
+computing CIDEr score...
+CIDEr: 0.068
+dict_items([('Bleu_1', 0.1787188863984795), ('Bleu_2', 0.12311817520645385), ('Bleu_3', 0.08592483869783188), ('Bleu_4', 0.05415389634495788), ('METEOR', 0.10877227301510715), ('ROUGE_L', 0.18975781748420323), ('CIDEr', 0.0683960428836199)])
+Epoch [23/50], Step [0/23], Loss: 1.3437, Perplexity: 3.8332
+Epoch [23/50], Step [10/23], Loss: 1.3870, Perplexity: 4.0030
+Epoch [23/50], Step [20/23], Loss: 1.6722, Perplexity: 5.3240
+Epoch [23/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17267, 'reflen': 10832, 'guess': [17267, 16902, 16537, 16172], 'correct': [4172, 1792, 850, 377]}
+ratio: 1.594073116691138
+Bleu_1: 0.242
+Bleu_2: 0.160
+Bleu_3: 0.110
+Bleu_4: 0.074
+computing METEOR score...
+METEOR: 0.157
+computing Rouge score...
+ROUGE_L: 0.233
+computing CIDEr score...
+CIDEr: 0.061
+dict_items([('Bleu_1', 0.24161695720158444), ('Bleu_2', 0.16005294120754396), ('Bleu_3', 0.10960486698291229), ('Bleu_4', 0.07443321602419421), ('METEOR', 0.15680410794172417), ('ROUGE_L', 0.23297828759472822), ('CIDEr', 0.0606169582416905)])
+Epoch [24/50], Step [0/23], Loss: 1.3581, Perplexity: 3.8888
+Epoch [24/50], Step [10/23], Loss: 1.3083, Perplexity: 3.6998
+Epoch [24/50], Step [20/23], Loss: 1.2993, Perplexity: 3.6669
+Epoch [24/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17777, 'reflen': 10832, 'guess': [17777, 17412, 17047, 16682], 'correct': [4205, 1717, 732, 229]}
+ratio: 1.6411558345641024
+Bleu_1: 0.237
+Bleu_2: 0.153
+Bleu_3: 0.100
+Bleu_4: 0.061
+computing METEOR score...
+METEOR: 0.153
+computing Rouge score...
+ROUGE_L: 0.224
+computing CIDEr score...
+CIDEr: 0.034
+dict_items([('Bleu_1', 0.2365415986949296), ('Bleu_2', 0.15272656433980575), ('Bleu_3', 0.1000531489024267), ('Bleu_4', 0.060893356360247314), ('METEOR', 0.1526458059303044), ('ROUGE_L', 0.22425698379964062), ('CIDEr', 0.03380045392385173)])
+Epoch [25/50], Step [0/23], Loss: 1.3154, Perplexity: 3.7263
+Epoch [25/50], Step [10/23], Loss: 0.8643, Perplexity: 2.3734
+Epoch [25/50], Step [20/23], Loss: 1.0849, Perplexity: 2.9592
+Epoch [25/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17210, 'reflen': 10832, 'guess': [17210, 16845, 16480, 16115], 'correct': [3346, 1457, 727, 330]}
+ratio: 1.5888109305759242
+Bleu_1: 0.194
+Bleu_2: 0.130
+Bleu_3: 0.091
+Bleu_4: 0.062
+computing METEOR score...
+METEOR: 0.119
+computing Rouge score...
+ROUGE_L: 0.212
+computing CIDEr score...
+CIDEr: 0.040
+dict_items([('Bleu_1', 0.19442184776291724), ('Bleu_2', 0.12967814855921614), ('Bleu_3', 0.0905253617011124), ('Bleu_4', 0.06243075816405164), ('METEOR', 0.11914845598720313), ('ROUGE_L', 0.21204699029461002), ('CIDEr', 0.0404989291215005)])
+Epoch [26/50], Step [0/23], Loss: 0.9227, Perplexity: 2.5160
+Epoch [26/50], Step [10/23], Loss: 0.9522, Perplexity: 2.5914
+Epoch [26/50], Step [20/23], Loss: 1.0275, Perplexity: 2.7940
+Epoch [26/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17980, 'reflen': 10832, 'guess': [17980, 17615, 17250, 16885], 'correct': [3067, 1233, 592, 186]}
+ratio: 1.6598966026586355
+Bleu_1: 0.171
+Bleu_2: 0.109
+Bleu_3: 0.074
+Bleu_4: 0.046
+computing METEOR score...
+METEOR: 0.107
+computing Rouge score...
+ROUGE_L: 0.192
+computing CIDEr score...
+CIDEr: 0.013
+dict_items([('Bleu_1', 0.17057842046717628), ('Bleu_2', 0.10927033104907308), ('Bleu_3', 0.07427552125888617), ('Bleu_4', 0.04609324151761057), ('METEOR', 0.10746500470508683), ('ROUGE_L', 0.1919260589502641), ('CIDEr', 0.013165137690720495)])
+Epoch [27/50], Step [0/23], Loss: 1.2075, Perplexity: 3.3451
+Epoch [27/50], Step [10/23], Loss: 0.8810, Perplexity: 2.4134
+Epoch [27/50], Step [20/23], Loss: 0.9682, Perplexity: 2.6333
+Epoch [27/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17404, 'reflen': 10832, 'guess': [17404, 17039, 16674, 16309], 'correct': [3311, 1341, 643, 193]}
+ratio: 1.6067208271785813
+Bleu_1: 0.190
+Bleu_2: 0.122
+Bleu_3: 0.083
+Bleu_4: 0.051
+computing METEOR score...
+METEOR: 0.113
+computing Rouge score...
+ROUGE_L: 0.209
+computing CIDEr score...
+CIDEr: 0.041
+dict_items([('Bleu_1', 0.1902436221558153), ('Bleu_2', 0.12236223206081295), ('Bleu_3', 0.0832700167995362), ('Bleu_4', 0.05112684378945665), ('METEOR', 0.1128314498822068), ('ROUGE_L', 0.20900452465054228), ('CIDEr', 0.04127553584894239)])
+Epoch [28/50], Step [0/23], Loss: 1.0427, Perplexity: 2.8368
+Epoch [28/50], Step [10/23], Loss: 1.1314, Perplexity: 3.0999
+Epoch [28/50], Step [20/23], Loss: 1.1117, Perplexity: 3.0395
+Epoch [28/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11092, 'reflen': 10832, 'guess': [11092, 10727, 10362, 9997], 'correct': [4360, 1901, 983, 519]}
+ratio: 1.0240029542096543
+Bleu_1: 0.393
+Bleu_2: 0.264
+Bleu_3: 0.188
+Bleu_4: 0.136
+computing METEOR score...
+METEOR: 0.172
+computing Rouge score...
+ROUGE_L: 0.314
+computing CIDEr score...
+CIDEr: 0.326
+dict_items([('Bleu_1', 0.3930760908762718), ('Bleu_2', 0.26393089611221976), ('Bleu_3', 0.18765643640992374), ('Bleu_4', 0.1360965183264419), ('METEOR', 0.17162255938303297), ('ROUGE_L', 0.31387032078934207), ('CIDEr', 0.32646944801925215)])
+Epoch [29/50], Step [0/23], Loss: 1.2513, Perplexity: 3.4949
+Epoch [29/50], Step [10/23], Loss: 1.2883, Perplexity: 3.6264
+Epoch [29/50], Step [20/23], Loss: 1.2306, Perplexity: 3.4232
+Epoch [29/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 11315, 'reflen': 10832, 'guess': [11315, 10950, 10585, 10220], 'correct': [4654, 2119, 1143, 615]}
+ratio: 1.0445901033972447
+Bleu_1: 0.411
+Bleu_2: 0.282
+Bleu_3: 0.205
+Bleu_4: 0.151
+computing METEOR score...
+METEOR: 0.187
+computing Rouge score...
+ROUGE_L: 0.332
+computing CIDEr score...
+CIDEr: 0.348
+dict_items([('Bleu_1', 0.4113124171453459), ('Bleu_2', 0.28212679100669596), ('Bleu_3', 0.20483995672463118), ('Bleu_4', 0.1508054585583481), ('METEOR', 0.18680158241175587), ('ROUGE_L', 0.3322616156938002), ('CIDEr', 0.34813996535934116)])
+Epoch [30/50], Step [0/23], Loss: 1.1241, Perplexity: 3.0775
+Epoch [30/50], Step [10/23], Loss: 1.2517, Perplexity: 3.4962
+Epoch [30/50], Step [20/23], Loss: 1.4597, Perplexity: 4.3048
+Epoch [30/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 13486, 'reflen': 10832, 'guess': [13486, 13121, 12756, 12391], 'correct': [4135, 1787, 835, 302]}
+ratio: 1.2450147710486295
+Bleu_1: 0.307
+Bleu_2: 0.204
+Bleu_3: 0.140
+Bleu_4: 0.090
+computing METEOR score...
+METEOR: 0.165
+computing Rouge score...
+ROUGE_L: 0.271
+computing CIDEr score...
+CIDEr: 0.134
+dict_items([('Bleu_1', 0.3066142666468703), ('Bleu_2', 0.20435016267906667), ('Bleu_3', 0.13982150748363417), ('Bleu_4', 0.09034531399390026), ('METEOR', 0.1647616389630206), ('ROUGE_L', 0.27112597227682345), ('CIDEr', 0.1337816771284967)])
+Epoch [31/50], Step [0/23], Loss: 1.4504, Perplexity: 4.2647
+Epoch [31/50], Step [10/23], Loss: 2.2816, Perplexity: 9.7924
+Epoch [31/50], Step [20/23], Loss: 0.9707, Perplexity: 2.6398
+Epoch [31/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18106, 'reflen': 10832, 'guess': [18106, 17741, 17376, 17011], 'correct': [3204, 1364, 700, 253]}
+ratio: 1.6715288035448974
+Bleu_1: 0.177
+Bleu_2: 0.117
+Bleu_3: 0.082
+Bleu_4: 0.053
+computing METEOR score...
+METEOR: 0.123
+computing Rouge score...
+ROUGE_L: 0.198
+computing CIDEr score...
+CIDEr: 0.014
+dict_items([('Bleu_1', 0.17695791450346973), ('Bleu_2', 0.11664150991102055), ('Bleu_3', 0.0818373389562335), ('Bleu_4', 0.05343321349668804), ('METEOR', 0.12278931743991688), ('ROUGE_L', 0.19845389344471553), ('CIDEr', 0.013730759037812143)])
+Epoch [32/50], Step [0/23], Loss: 1.0921, Perplexity: 2.9806
+Epoch [32/50], Step [10/23], Loss: 1.2263, Perplexity: 3.4085
+Epoch [32/50], Step [20/23], Loss: 2.1018, Perplexity: 8.1811
+Epoch [32/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16624, 'reflen': 10832, 'guess': [16624, 16259, 15894, 15529], 'correct': [3786, 1669, 815, 288]}
+ratio: 1.5347119645493412
+Bleu_1: 0.228
+Bleu_2: 0.153
+Bleu_3: 0.106
+Bleu_4: 0.069
+computing METEOR score...
+METEOR: 0.147
+computing Rouge score...
+ROUGE_L: 0.235
+computing CIDEr score...
+CIDEr: 0.056
+dict_items([('Bleu_1', 0.22774302213665618), ('Bleu_2', 0.15289869986553353), ('Bleu_3', 0.10622922058654133), ('Bleu_4', 0.06866655283882504), ('METEOR', 0.147397947134175), ('ROUGE_L', 0.23478135153343785), ('CIDEr', 0.055534579655595384)])
+Epoch [33/50], Step [0/23], Loss: 2.1344, Perplexity: 8.4520
+Epoch [33/50], Step [10/23], Loss: 0.8471, Perplexity: 2.3328
+Epoch [33/50], Step [20/23], Loss: 0.7715, Perplexity: 2.1629
+Epoch [33/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17286, 'reflen': 10832, 'guess': [17286, 16921, 16556, 16191], 'correct': [3452, 1503, 752, 266]}
+ratio: 1.5958271787295424
+Bleu_1: 0.200
+Bleu_2: 0.133
+Bleu_3: 0.093
+Bleu_4: 0.060
+computing METEOR score...
+METEOR: 0.130
+computing Rouge score...
+ROUGE_L: 0.216
+computing CIDEr score...
+CIDEr: 0.046
+dict_items([('Bleu_1', 0.19969917852596322), ('Bleu_2', 0.13318478585430416), ('Bleu_3', 0.09305160864176425), ('Bleu_4', 0.06031771835290731), ('METEOR', 0.12954609830292982), ('ROUGE_L', 0.215950134217255), ('CIDEr', 0.04581526898128039)])
+Epoch [34/50], Step [0/23], Loss: 0.8053, Perplexity: 2.2374
+Epoch [34/50], Step [10/23], Loss: 0.8988, Perplexity: 2.4567
+Epoch [34/50], Step [20/23], Loss: 0.8599, Perplexity: 2.3630
+Epoch [34/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17447, 'reflen': 10832, 'guess': [17447, 17082, 16717, 16352], 'correct': [3720, 1582, 770, 282]}
+ratio: 1.6106905465286547
+Bleu_1: 0.213
+Bleu_2: 0.141
+Bleu_3: 0.097
+Bleu_4: 0.063
+computing METEOR score...
+METEOR: 0.139
+computing Rouge score...
+ROUGE_L: 0.221
+computing CIDEr score...
+CIDEr: 0.048
+dict_items([('Bleu_1', 0.21321717200663648), ('Bleu_2', 0.14052220963659814), ('Bleu_3', 0.09688891838774427), ('Bleu_4', 0.06293252228276754), ('METEOR', 0.13909277594691397), ('ROUGE_L', 0.22091098775280707), ('CIDEr', 0.04785240837324977)])
+Epoch [35/50], Step [0/23], Loss: 0.8357, Perplexity: 2.3063
+Epoch [35/50], Step [10/23], Loss: 0.9123, Perplexity: 2.4899
+Epoch [35/50], Step [20/23], Loss: 0.9368, Perplexity: 2.5519
+Epoch [35/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [3560, 1457, 738, 312]}
+ratio: 1.684822747414911
+Bleu_1: 0.195
+Bleu_2: 0.126
+Bleu_3: 0.087
+Bleu_4: 0.059
+computing METEOR score...
+METEOR: 0.121
+computing Rouge score...
+ROUGE_L: 0.210
+computing CIDEr score...
+CIDEr: 0.003
+dict_items([('Bleu_1', 0.19506849315067423), ('Bleu_2', 0.12606045439239383), ('Bleu_3', 0.08747688952801136), ('Bleu_4', 0.05906918340153061), ('METEOR', 0.12134370019077381), ('ROUGE_L', 0.2103806233234534), ('CIDEr', 0.0027492019499227353)])
+Epoch [36/50], Step [0/23], Loss: 0.8040, Perplexity: 2.2344
+Epoch [36/50], Step [10/23], Loss: 0.7318, Perplexity: 2.0789
+Epoch [36/50], Step [20/23], Loss: 0.9002, Perplexity: 2.4602
+Epoch [36/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [3366, 1441, 728, 300]}
+ratio: 1.684822747414911
+Bleu_1: 0.184
+Bleu_2: 0.122
+Bleu_3: 0.085
+Bleu_4: 0.057
+computing METEOR score...
+METEOR: 0.120
+computing Rouge score...
+ROUGE_L: 0.209
+computing CIDEr score...
+CIDEr: 0.002
+dict_items([('Bleu_1', 0.18443835616437346), ('Bleu_2', 0.12190264800371874), ('Bleu_3', 0.08515454881670022), ('Bleu_4', 0.05732426859597873), ('METEOR', 0.12012385837105545), ('ROUGE_L', 0.20877141723796627), ('CIDEr', 0.0021047212874186925)])
+Epoch [37/50], Step [0/23], Loss: 1.2758, Perplexity: 3.5814
+Epoch [37/50], Step [10/23], Loss: 0.7324, Perplexity: 2.0800
+Epoch [37/50], Step [20/23], Loss: 0.6485, Perplexity: 1.9126
+Epoch [37/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16522, 'reflen': 10832, 'guess': [16522, 16157, 15792, 15427], 'correct': [3797, 1551, 775, 338]}
+ratio: 1.5252954209747482
+Bleu_1: 0.230
+Bleu_2: 0.149
+Bleu_3: 0.103
+Bleu_4: 0.070
+computing METEOR score...
+METEOR: 0.137
+computing Rouge score...
+ROUGE_L: 0.234
+computing CIDEr score...
+CIDEr: 0.060
+dict_items([('Bleu_1', 0.22981479239800084), ('Bleu_2', 0.14853011799898713), ('Bleu_3', 0.10268284029220753), ('Bleu_4', 0.06978823423016976), ('METEOR', 0.13672306373131451), ('ROUGE_L', 0.233603690708874), ('CIDEr', 0.06015639279550705)])
+Epoch [38/50], Step [0/23], Loss: 0.6275, Perplexity: 1.8730
+Epoch [38/50], Step [10/23], Loss: 0.7162, Perplexity: 2.0467
+Epoch [38/50], Step [20/23], Loss: 0.6793, Perplexity: 1.9726
+Epoch [38/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [3263, 1297, 626, 188]}
+ratio: 1.684822747414911
+Bleu_1: 0.179
+Bleu_2: 0.114
+Bleu_3: 0.077
+Bleu_4: 0.047
+computing METEOR score...
+METEOR: 0.116
+computing Rouge score...
+ROUGE_L: 0.198
+computing CIDEr score...
+CIDEr: 0.002
+dict_items([('Bleu_1', 0.1787945205479354), ('Bleu_2', 0.11386824268774923), ('Bleu_3', 0.07737758232404125), ('Bleu_4', 0.0474682421001136), ('METEOR', 0.11583277265393949), ('ROUGE_L', 0.19838577317057848), ('CIDEr', 0.0016823743762449201)])
+Epoch [39/50], Step [0/23], Loss: 0.7685, Perplexity: 2.1565
+Epoch [39/50], Step [10/23], Loss: 0.6499, Perplexity: 1.9154
+Epoch [39/50], Step [20/23], Loss: 0.7305, Perplexity: 2.0761
+Epoch [39/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16522, 'reflen': 10832, 'guess': [16522, 16157, 15792, 15427], 'correct': [3797, 1551, 775, 338]}
+ratio: 1.5252954209747482
+Bleu_1: 0.230
+Bleu_2: 0.149
+Bleu_3: 0.103
+Bleu_4: 0.070
+computing METEOR score...
+METEOR: 0.137
+computing Rouge score...
+ROUGE_L: 0.234
+computing CIDEr score...
+CIDEr: 0.060
+dict_items([('Bleu_1', 0.22981479239800084), ('Bleu_2', 0.14853011799898713), ('Bleu_3', 0.10268284029220753), ('Bleu_4', 0.06978823423016976), ('METEOR', 0.13672306373131451), ('ROUGE_L', 0.233603690708874), ('CIDEr', 0.06015639279550705)])
+Epoch [40/50], Step [0/23], Loss: 0.6992, Perplexity: 2.0121
+Epoch [40/50], Step [10/23], Loss: 0.7521, Perplexity: 2.1215
+Epoch [40/50], Step [20/23], Loss: 0.6555, Perplexity: 1.9260
+Epoch [40/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16500, 'reflen': 10832, 'guess': [16500, 16135, 15770, 15405], 'correct': [3753, 1495, 691, 227]}
+ratio: 1.523264401772385
+Bleu_1: 0.227
+Bleu_2: 0.145
+Bleu_3: 0.097
+Bleu_4: 0.061
+computing METEOR score...
+METEOR: 0.133
+computing Rouge score...
+ROUGE_L: 0.231
+computing CIDEr score...
+CIDEr: 0.061
+dict_items([('Bleu_1', 0.22745454545453167), ('Bleu_2', 0.14517218769953524), ('Bleu_3', 0.0973802904875123), ('Bleu_4', 0.060735741490289), ('METEOR', 0.1330989567217233), ('ROUGE_L', 0.2308057521525766), ('CIDEr', 0.06106831058683803)])
+Epoch [41/50], Step [0/23], Loss: 0.7004, Perplexity: 2.0146
+Epoch [41/50], Step [10/23], Loss: 0.6977, Perplexity: 2.0092
+Epoch [41/50], Step [20/23], Loss: 0.6638, Perplexity: 1.9421
+Epoch [41/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 17754, 'reflen': 10832, 'guess': [17754, 17389, 17024, 16659], 'correct': [3465, 1437, 755, 330]}
+ratio: 1.6390324963070864
+Bleu_1: 0.195
+Bleu_2: 0.127
+Bleu_3: 0.089
+Bleu_4: 0.061
+computing METEOR score...
+METEOR: 0.123
+computing Rouge score...
+ROUGE_L: 0.211
+computing CIDEr score...
+CIDEr: 0.020
+dict_items([('Bleu_1', 0.19516728624534216), ('Bleu_2', 0.12699733047152623), ('Bleu_3', 0.08943170454227595), ('Bleu_4', 0.06135287013749409), ('METEOR', 0.12313735724002692), ('ROUGE_L', 0.21149150720912333), ('CIDEr', 0.019665599849014885)])
+Epoch [42/50], Step [0/23], Loss: 0.6437, Perplexity: 1.9034
+Epoch [42/50], Step [10/23], Loss: 0.6115, Perplexity: 1.8432
+Epoch [42/50], Step [20/23], Loss: 0.6331, Perplexity: 1.8834
+Epoch [42/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16878, 'reflen': 10832, 'guess': [16878, 16513, 16148, 15783], 'correct': [3880, 1612, 736, 237]}
+ratio: 1.5581610044311707
+Bleu_1: 0.230
+Bleu_2: 0.150
+Bleu_3: 0.101
+Bleu_4: 0.063
+computing METEOR score...
+METEOR: 0.139
+computing Rouge score...
+ROUGE_L: 0.239
+computing CIDEr score...
+CIDEr: 0.065
+dict_items([('Bleu_1', 0.22988505747125074), ('Bleu_2', 0.14980451393904617), ('Bleu_3', 0.10075569994890927), ('Bleu_4', 0.06260253442011753), ('METEOR', 0.13918536470892523), ('ROUGE_L', 0.23896875554445185), ('CIDEr', 0.0650399310009637)])
+Epoch [43/50], Step [0/23], Loss: 0.7261, Perplexity: 2.0670
+Epoch [43/50], Step [10/23], Loss: 0.7644, Perplexity: 2.1477
+Epoch [43/50], Step [20/23], Loss: 0.6640, Perplexity: 1.9426
+Epoch [43/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16506, 'reflen': 10832, 'guess': [16506, 16141, 15776, 15411], 'correct': [3799, 1551, 775, 338]}
+ratio: 1.5238183161003025
+Bleu_1: 0.230
+Bleu_2: 0.149
+Bleu_3: 0.103
+Bleu_4: 0.070
+computing METEOR score...
+METEOR: 0.137
+computing Rouge score...
+ROUGE_L: 0.234
+computing CIDEr score...
+CIDEr: 0.060
+dict_items([('Bleu_1', 0.2301587301587162), ('Bleu_2', 0.14871487367842676), ('Bleu_3', 0.10280270432088745), ('Bleu_4', 0.06986744704867982), ('METEOR', 0.13678569857511133), ('ROUGE_L', 0.233772579162365), ('CIDEr', 0.060158095365851746)])
+Epoch [44/50], Step [0/23], Loss: 0.6086, Perplexity: 1.8379
+Epoch [44/50], Step [10/23], Loss: 0.6838, Perplexity: 1.9814
+Epoch [44/50], Step [20/23], Loss: 0.9751, Perplexity: 2.6514
+Epoch [44/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16538, 'reflen': 10832, 'guess': [16538, 16173, 15808, 15443], 'correct': [3687, 1537, 760, 329]}
+ratio: 1.5267725258491942
+Bleu_1: 0.223
+Bleu_2: 0.146
+Bleu_3: 0.101
+Bleu_4: 0.068
+computing METEOR score...
+METEOR: 0.132
+computing Rouge score...
+ROUGE_L: 0.234
+computing CIDEr score...
+CIDEr: 0.060
+dict_items([('Bleu_1', 0.2229411053331586), ('Bleu_2', 0.14555821310527878), ('Bleu_3', 0.10061669134749622), ('Bleu_4', 0.06825250266885885), ('METEOR', 0.13184326683632736), ('ROUGE_L', 0.23365849016522997), ('CIDEr', 0.060294815194440216)])
+Epoch [45/50], Step [0/23], Loss: 1.1490, Perplexity: 3.1550
+Epoch [45/50], Step [10/23], Loss: 1.0104, Perplexity: 2.7467
+Epoch [45/50], Step [20/23], Loss: 0.9043, Perplexity: 2.4702
+Epoch [45/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16533, 'reflen': 10832, 'guess': [16533, 16168, 15803, 15438], 'correct': [2941, 1374, 731, 329]}
+ratio: 1.52631093057593
+Bleu_1: 0.178
+Bleu_2: 0.123
+Bleu_3: 0.089
+Bleu_4: 0.062
+computing METEOR score...
+METEOR: 0.107
+computing Rouge score...
+ROUGE_L: 0.189
+computing CIDEr score...
+CIDEr: 0.059
+dict_items([('Bleu_1', 0.17788665094053238), ('Bleu_2', 0.12295236744602021), ('Bleu_3', 0.08875998277450257), ('Bleu_4', 0.06213182670979707), ('METEOR', 0.10744998765518769), ('ROUGE_L', 0.1891402163021408), ('CIDEr', 0.059448159983778726)])
+Epoch [46/50], Step [0/23], Loss: 0.4087, Perplexity: 1.5049
+Epoch [46/50], Step [10/23], Loss: 0.5029, Perplexity: 1.6534
+Epoch [46/50], Step [20/23], Loss: 0.4785, Perplexity: 1.6136
+Epoch [46/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [2522, 1071, 506, 236]}
+ratio: 1.684822747414911
+Bleu_1: 0.138
+Bleu_2: 0.091
+Bleu_3: 0.062
+Bleu_4: 0.043
+computing METEOR score...
+METEOR: 0.097
+computing Rouge score...
+ROUGE_L: 0.161
+computing CIDEr score...
+CIDEr: 0.002
+dict_items([('Bleu_1', 0.13819178082191022), ('Bleu_2', 0.09096857044338524), ('Bleu_3', 0.062058277671716344), ('Bleu_4', 0.04258239741586774), ('METEOR', 0.09671847262472617), ('ROUGE_L', 0.1614028800800067), ('CIDEr', 0.0024057634410903223)])
+Epoch [47/50], Step [0/23], Loss: 0.4944, Perplexity: 1.6396
+Epoch [47/50], Step [10/23], Loss: 0.5282, Perplexity: 1.6958
+Epoch [47/50], Step [20/23], Loss: 0.4101, Perplexity: 1.5070
+Epoch [47/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18250, 'reflen': 10832, 'guess': [18250, 17885, 17520, 17155], 'correct': [2522, 1071, 506, 236]}
+ratio: 1.684822747414911
+Bleu_1: 0.138
+Bleu_2: 0.091
+Bleu_3: 0.062
+Bleu_4: 0.043
+computing METEOR score...
+METEOR: 0.097
+computing Rouge score...
+ROUGE_L: 0.161
+computing CIDEr score...
+CIDEr: 0.002
+dict_items([('Bleu_1', 0.13819178082191022), ('Bleu_2', 0.09096857044338524), ('Bleu_3', 0.062058277671716344), ('Bleu_4', 0.04258239741586774), ('METEOR', 0.09671847262472617), ('ROUGE_L', 0.1614028800800067), ('CIDEr', 0.0024057634410903223)])
+Epoch [48/50], Step [0/23], Loss: 0.4281, Perplexity: 1.5344
+Epoch [48/50], Step [10/23], Loss: 0.5403, Perplexity: 1.7165
+Epoch [48/50], Step [20/23], Loss: 0.4292, Perplexity: 1.5360
+Epoch [48/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 18131, 'reflen': 10832, 'guess': [18131, 17766, 17401, 17036], 'correct': [2580, 1093, 516, 239]}
+ratio: 1.673836779911219
+Bleu_1: 0.142
+Bleu_2: 0.094
+Bleu_3: 0.064
+Bleu_4: 0.044
+computing METEOR score...
+METEOR: 0.098
+computing Rouge score...
+ROUGE_L: 0.165
+computing CIDEr score...
+CIDEr: 0.009
+dict_items([('Bleu_1', 0.1422977221333549), ('Bleu_2', 0.09356517325640797), ('Bleu_3', 0.06379225910304613), ('Bleu_4', 0.043685122119613916), ('METEOR', 0.09846635413445137), ('ROUGE_L', 0.16475723792927793), ('CIDEr', 0.008580370124742847)])
+Epoch [49/50], Step [0/23], Loss: 0.3905, Perplexity: 1.4778
+Epoch [49/50], Step [10/23], Loss: 0.3630, Perplexity: 1.4377
+Epoch [49/50], Step [20/23], Loss: 0.5545, Perplexity: 1.7411
+Epoch [49/50], Step [0/3]
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+tokenization...
+setting up scorers...
+computing Bleu score...
+{'testlen': 16805, 'reflen': 10832, 'guess': [16805, 16440, 16075, 15710], 'correct': [3028, 1279, 601, 280]}
+ratio: 1.5514217134415111
+Bleu_1: 0.180
+Bleu_2: 0.118
+Bleu_3: 0.081
+Bleu_4: 0.055
+computing METEOR score...
+METEOR: 0.115
+computing Rouge score...
+ROUGE_L: 0.194
+computing CIDEr score...
+CIDEr: 0.054
+dict_items([('Bleu_1', 0.18018446890805234), ('Bleu_2', 0.11839763915306145), ('Bleu_3', 0.08062502430560886), ('Bleu_4', 0.05528379597030971), ('METEOR', 0.11485127744249601), ('ROUGE_L', 0.1935249078932342), ('CIDEr', 0.05373560009683758)])

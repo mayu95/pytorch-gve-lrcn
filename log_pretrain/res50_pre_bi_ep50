@@ -1,0 +1,291 @@
+Arguments:
+data_path                     ./data
+checkpoint_path               ./checkpoints
+log_step                      10
+num_workers                   4
+disable_cuda                  False
+cuda_device                   0
+torch_seed                    6409270042449031092
+model                         sc
+dataset                       iu
+pretrained_model              resnet50
+layers_to_truncate            1
+sc_ckpt                       data/cub/sentence_classifier_ckpt.pth
+weights_ckpt                  None
+loss_lambda                   0.2
+embedding_size                1000
+hidden_size                   1000
+num_epochs                    50
+batch_size                    128
+learning_rate                 0.001
+train                         True
+eval_ckpt                     None
+
+Preparing Data ...
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+
+Loading Model ...
+SentenceClassifier(
+  (word_embed): Embedding(978, 1000, padding_idx=0)
+  (lstm): LSTM(1000, 2000, batch_first=True, bidirectional=True)
+  (linear): Linear(in_features=4000, out_features=17, bias=True)
+) 
+
+Training ...
+Epoch [0/50], Step [0/23], Loss: 2.8424, Perplexity: 17.1561
+Epoch [0/50], Step [10/23], Loss: 1.3799, Perplexity: 3.9744
+Epoch [0/50], Step [20/23], Loss: 1.0696, Perplexity: 2.9142
+Epoch [0/50], Step [0/3]
+Evaluation Accuracy: 0.7178082191780822
+Epoch [1/50], Step [0/23], Loss: 0.9802, Perplexity: 2.6649
+Epoch [1/50], Step [10/23], Loss: 1.3964, Perplexity: 4.0408
+Epoch [1/50], Step [20/23], Loss: 1.0032, Perplexity: 2.7271
+Epoch [1/50], Step [0/3]
+Evaluation Accuracy: 0.7616438356164383
+Epoch [2/50], Step [0/23], Loss: 0.8496, Perplexity: 2.3387
+Epoch [2/50], Step [10/23], Loss: 0.9664, Perplexity: 2.6285
+Epoch [2/50], Step [20/23], Loss: 0.8858, Perplexity: 2.4249
+Epoch [2/50], Step [0/3]
+Evaluation Accuracy: 0.7589041095890411
+Epoch [3/50], Step [0/23], Loss: 0.8925, Perplexity: 2.4412
+Epoch [3/50], Step [10/23], Loss: 0.8887, Perplexity: 2.4320
+Epoch [3/50], Step [20/23], Loss: 0.8743, Perplexity: 2.3973
+Epoch [3/50], Step [0/3]
+Evaluation Accuracy: 0.8
+Epoch [4/50], Step [0/23], Loss: 0.7018, Perplexity: 2.0173
+Epoch [4/50], Step [10/23], Loss: 0.6593, Perplexity: 1.9334
+Epoch [4/50], Step [20/23], Loss: 0.6898, Perplexity: 1.9933
+Epoch [4/50], Step [0/3]
+Evaluation Accuracy: 0.7808219178082192
+Epoch [5/50], Step [0/23], Loss: 0.8611, Perplexity: 2.3658
+Epoch [5/50], Step [10/23], Loss: 0.4735, Perplexity: 1.6056
+Epoch [5/50], Step [20/23], Loss: 0.6596, Perplexity: 1.9341
+Epoch [5/50], Step [0/3]
+Evaluation Accuracy: 0.8383561643835616
+Epoch [6/50], Step [0/23], Loss: 0.5557, Perplexity: 1.7432
+Epoch [6/50], Step [10/23], Loss: 0.4638, Perplexity: 1.5901
+Epoch [6/50], Step [20/23], Loss: 0.3751, Perplexity: 1.4552
+Epoch [6/50], Step [0/3]
+Evaluation Accuracy: 0.8410958904109589
+Epoch [7/50], Step [0/23], Loss: 0.3897, Perplexity: 1.4765
+Epoch [7/50], Step [10/23], Loss: 0.3251, Perplexity: 1.3841
+Epoch [7/50], Step [20/23], Loss: 0.3238, Perplexity: 1.3824
+Epoch [7/50], Step [0/3]
+Evaluation Accuracy: 0.8328767123287671
+Epoch [8/50], Step [0/23], Loss: 0.4860, Perplexity: 1.6258
+Epoch [8/50], Step [10/23], Loss: 0.3385, Perplexity: 1.4028
+Epoch [8/50], Step [20/23], Loss: 0.3679, Perplexity: 1.4448
+Epoch [8/50], Step [0/3]
+Evaluation Accuracy: 0.8575342465753425
+Epoch [9/50], Step [0/23], Loss: 0.4306, Perplexity: 1.5381
+Epoch [9/50], Step [10/23], Loss: 0.2650, Perplexity: 1.3035
+Epoch [9/50], Step [20/23], Loss: 0.2767, Perplexity: 1.3188
+Epoch [9/50], Step [0/3]
+Evaluation Accuracy: 0.9013698630136986
+Epoch [10/50], Step [0/23], Loss: 0.2206, Perplexity: 1.2468
+Epoch [10/50], Step [10/23], Loss: 0.1970, Perplexity: 1.2177
+Epoch [10/50], Step [20/23], Loss: 0.3376, Perplexity: 1.4016
+Epoch [10/50], Step [0/3]
+Evaluation Accuracy: 0.9068493150684932
+Epoch [11/50], Step [0/23], Loss: 0.1325, Perplexity: 1.1416
+Epoch [11/50], Step [10/23], Loss: 0.2205, Perplexity: 1.2467
+Epoch [11/50], Step [20/23], Loss: 0.1605, Perplexity: 1.1741
+Epoch [11/50], Step [0/3]
+Evaluation Accuracy: 0.9123287671232877
+Epoch [12/50], Step [0/23], Loss: 0.0909, Perplexity: 1.0952
+Epoch [12/50], Step [10/23], Loss: 0.2003, Perplexity: 1.2217
+Epoch [12/50], Step [20/23], Loss: 0.2251, Perplexity: 1.2525
+Epoch [12/50], Step [0/3]
+Evaluation Accuracy: 0.9342465753424658
+Epoch [13/50], Step [0/23], Loss: 0.1323, Perplexity: 1.1415
+Epoch [13/50], Step [10/23], Loss: 0.1009, Perplexity: 1.1062
+Epoch [13/50], Step [20/23], Loss: 0.0759, Perplexity: 1.0789
+Epoch [13/50], Step [0/3]
+Evaluation Accuracy: 0.9424657534246575
+Epoch [14/50], Step [0/23], Loss: 0.0342, Perplexity: 1.0348
+Epoch [14/50], Step [10/23], Loss: 0.1005, Perplexity: 1.1057
+Epoch [14/50], Step [20/23], Loss: 0.0860, Perplexity: 1.0898
+Epoch [14/50], Step [0/3]
+Evaluation Accuracy: 0.9315068493150684
+Epoch [15/50], Step [0/23], Loss: 0.0482, Perplexity: 1.0494
+Epoch [15/50], Step [10/23], Loss: 0.0589, Perplexity: 1.0607
+Epoch [15/50], Step [20/23], Loss: 0.0235, Perplexity: 1.0238
+Epoch [15/50], Step [0/3]
+Evaluation Accuracy: 0.9452054794520548
+Epoch [16/50], Step [0/23], Loss: 0.0625, Perplexity: 1.0645
+Epoch [16/50], Step [10/23], Loss: 0.0397, Perplexity: 1.0405
+Epoch [16/50], Step [20/23], Loss: 0.0770, Perplexity: 1.0800
+Epoch [16/50], Step [0/3]
+Evaluation Accuracy: 0.9643835616438357
+Epoch [17/50], Step [0/23], Loss: 0.0369, Perplexity: 1.0376
+Epoch [17/50], Step [10/23], Loss: 0.0390, Perplexity: 1.0398
+Epoch [17/50], Step [20/23], Loss: 0.0543, Perplexity: 1.0558
+Epoch [17/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [18/50], Step [0/23], Loss: 0.0302, Perplexity: 1.0307
+Epoch [18/50], Step [10/23], Loss: 0.0397, Perplexity: 1.0405
+Epoch [18/50], Step [20/23], Loss: 0.0466, Perplexity: 1.0477
+Epoch [18/50], Step [0/3]
+Evaluation Accuracy: 0.9561643835616438
+Epoch [19/50], Step [0/23], Loss: 0.0052, Perplexity: 1.0052
+Epoch [19/50], Step [10/23], Loss: 0.0066, Perplexity: 1.0066
+Epoch [19/50], Step [20/23], Loss: 0.0842, Perplexity: 1.0878
+Epoch [19/50], Step [0/3]
+Evaluation Accuracy: 0.9424657534246575
+Epoch [20/50], Step [0/23], Loss: 0.0790, Perplexity: 1.0822
+Epoch [20/50], Step [10/23], Loss: 0.0467, Perplexity: 1.0478
+Epoch [20/50], Step [20/23], Loss: 0.0850, Perplexity: 1.0888
+Epoch [20/50], Step [0/3]
+Evaluation Accuracy: 0.9452054794520548
+Epoch [21/50], Step [0/23], Loss: 0.0056, Perplexity: 1.0056
+Epoch [21/50], Step [10/23], Loss: 0.0137, Perplexity: 1.0138
+Epoch [21/50], Step [20/23], Loss: 0.0175, Perplexity: 1.0176
+Epoch [21/50], Step [0/3]
+Evaluation Accuracy: 0.947945205479452
+Epoch [22/50], Step [0/23], Loss: 0.0057, Perplexity: 1.0057
+Epoch [22/50], Step [10/23], Loss: 0.0422, Perplexity: 1.0431
+Epoch [22/50], Step [20/23], Loss: 0.0021, Perplexity: 1.0021
+Epoch [22/50], Step [0/3]
+Evaluation Accuracy: 0.958904109589041
+Epoch [23/50], Step [0/23], Loss: 0.0025, Perplexity: 1.0025
+Epoch [23/50], Step [10/23], Loss: 0.0463, Perplexity: 1.0474
+Epoch [23/50], Step [20/23], Loss: 0.0418, Perplexity: 1.0427
+Epoch [23/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [24/50], Step [0/23], Loss: 0.0203, Perplexity: 1.0205
+Epoch [24/50], Step [10/23], Loss: 0.0399, Perplexity: 1.0407
+Epoch [24/50], Step [20/23], Loss: 0.0140, Perplexity: 1.0141
+Epoch [24/50], Step [0/3]
+Evaluation Accuracy: 0.947945205479452
+Epoch [25/50], Step [0/23], Loss: 0.0140, Perplexity: 1.0141
+Epoch [25/50], Step [10/23], Loss: 0.0148, Perplexity: 1.0149
+Epoch [25/50], Step [20/23], Loss: 0.0982, Perplexity: 1.1032
+Epoch [25/50], Step [0/3]
+Evaluation Accuracy: 0.9205479452054794
+Epoch [26/50], Step [0/23], Loss: 0.3423, Perplexity: 1.4082
+Epoch [26/50], Step [10/23], Loss: 0.0960, Perplexity: 1.1007
+Epoch [26/50], Step [20/23], Loss: 0.0116, Perplexity: 1.0117
+Epoch [26/50], Step [0/3]
+Evaluation Accuracy: 0.958904109589041
+Epoch [27/50], Step [0/23], Loss: 0.0121, Perplexity: 1.0122
+Epoch [27/50], Step [10/23], Loss: 0.0172, Perplexity: 1.0173
+Epoch [27/50], Step [20/23], Loss: 0.1328, Perplexity: 1.1420
+Epoch [27/50], Step [0/3]
+Evaluation Accuracy: 0.9342465753424658
+Epoch [28/50], Step [0/23], Loss: 0.0687, Perplexity: 1.0711
+Epoch [28/50], Step [10/23], Loss: 0.1590, Perplexity: 1.1723
+Epoch [28/50], Step [20/23], Loss: 0.0663, Perplexity: 1.0686
+Epoch [28/50], Step [0/3]
+Evaluation Accuracy: 0.9452054794520548
+Epoch [29/50], Step [0/23], Loss: 0.0596, Perplexity: 1.0614
+Epoch [29/50], Step [10/23], Loss: 0.0140, Perplexity: 1.0141
+Epoch [29/50], Step [20/23], Loss: 0.0790, Perplexity: 1.0822
+Epoch [29/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [30/50], Step [0/23], Loss: 0.0471, Perplexity: 1.0482
+Epoch [30/50], Step [10/23], Loss: 0.0215, Perplexity: 1.0217
+Epoch [30/50], Step [20/23], Loss: 0.0118, Perplexity: 1.0119
+Epoch [30/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [31/50], Step [0/23], Loss: 0.0047, Perplexity: 1.0047
+Epoch [31/50], Step [10/23], Loss: 0.0057, Perplexity: 1.0058
+Epoch [31/50], Step [20/23], Loss: 0.0018, Perplexity: 1.0018
+Epoch [31/50], Step [0/3]
+Evaluation Accuracy: 0.9643835616438357
+Epoch [32/50], Step [0/23], Loss: 0.0227, Perplexity: 1.0229
+Epoch [32/50], Step [10/23], Loss: 0.0856, Perplexity: 1.0894
+Epoch [32/50], Step [20/23], Loss: 0.0559, Perplexity: 1.0575
+Epoch [32/50], Step [0/3]
+Evaluation Accuracy: 0.9671232876712329
+Epoch [33/50], Step [0/23], Loss: 0.0357, Perplexity: 1.0364
+Epoch [33/50], Step [10/23], Loss: 0.0028, Perplexity: 1.0028
+Epoch [33/50], Step [20/23], Loss: 0.0094, Perplexity: 1.0095
+Epoch [33/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [34/50], Step [0/23], Loss: 0.0118, Perplexity: 1.0118
+Epoch [34/50], Step [10/23], Loss: 0.0112, Perplexity: 1.0113
+Epoch [34/50], Step [20/23], Loss: 0.0031, Perplexity: 1.0031
+Epoch [34/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [35/50], Step [0/23], Loss: 0.0012, Perplexity: 1.0012
+Epoch [35/50], Step [10/23], Loss: 0.0025, Perplexity: 1.0025
+Epoch [35/50], Step [20/23], Loss: 0.0067, Perplexity: 1.0067
+Epoch [35/50], Step [0/3]
+Evaluation Accuracy: 0.9671232876712329
+Epoch [36/50], Step [0/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [36/50], Step [10/23], Loss: 0.0189, Perplexity: 1.0191
+Epoch [36/50], Step [20/23], Loss: 0.0036, Perplexity: 1.0036
+Epoch [36/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [37/50], Step [0/23], Loss: 0.0025, Perplexity: 1.0025
+Epoch [37/50], Step [10/23], Loss: 0.0012, Perplexity: 1.0012
+Epoch [37/50], Step [20/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [37/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [38/50], Step [0/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [38/50], Step [10/23], Loss: 0.0055, Perplexity: 1.0055
+Epoch [38/50], Step [20/23], Loss: 0.0016, Perplexity: 1.0016
+Epoch [38/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [39/50], Step [0/23], Loss: 0.0005, Perplexity: 1.0005
+Epoch [39/50], Step [10/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [39/50], Step [20/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [39/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [40/50], Step [0/23], Loss: 0.0006, Perplexity: 1.0006
+Epoch [40/50], Step [10/23], Loss: 0.0009, Perplexity: 1.0009
+Epoch [40/50], Step [20/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [40/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [41/50], Step [0/23], Loss: 0.0023, Perplexity: 1.0023
+Epoch [41/50], Step [10/23], Loss: 0.0018, Perplexity: 1.0018
+Epoch [41/50], Step [20/23], Loss: 0.0005, Perplexity: 1.0005
+Epoch [41/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [42/50], Step [0/23], Loss: 0.0010, Perplexity: 1.0010
+Epoch [42/50], Step [10/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [42/50], Step [20/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [42/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [43/50], Step [0/23], Loss: 0.0007, Perplexity: 1.0007
+Epoch [43/50], Step [10/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [43/50], Step [20/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [43/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [44/50], Step [0/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [44/50], Step [10/23], Loss: 0.0002, Perplexity: 1.0002
+Epoch [44/50], Step [20/23], Loss: 0.0002, Perplexity: 1.0002
+Epoch [44/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [45/50], Step [0/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [45/50], Step [10/23], Loss: 0.0006, Perplexity: 1.0006
+Epoch [45/50], Step [20/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [45/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [46/50], Step [0/23], Loss: 0.0004, Perplexity: 1.0004
+Epoch [46/50], Step [10/23], Loss: 0.0021, Perplexity: 1.0021
+Epoch [46/50], Step [20/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [46/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [47/50], Step [0/23], Loss: 0.0019, Perplexity: 1.0019
+Epoch [47/50], Step [10/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [47/50], Step [20/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [47/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [48/50], Step [0/23], Loss: 0.0003, Perplexity: 1.0003
+Epoch [48/50], Step [10/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [48/50], Step [20/23], Loss: 0.0042, Perplexity: 1.0042
+Epoch [48/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384
+Epoch [49/50], Step [0/23], Loss: 0.0002, Perplexity: 1.0002
+Epoch [49/50], Step [10/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [49/50], Step [20/23], Loss: 0.0001, Perplexity: 1.0001
+Epoch [49/50], Step [0/3]
+Evaluation Accuracy: 0.9616438356164384

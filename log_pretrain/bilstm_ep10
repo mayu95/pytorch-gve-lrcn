@@ -1,0 +1,91 @@
+Arguments:
+data_path                     ./data
+checkpoint_path               ./checkpoints
+log_step                      10
+num_workers                   4
+disable_cuda                  False
+cuda_device                   0
+torch_seed                    9285666890340092001
+model                         sc
+dataset                       iu
+pretrained_model              vgg16
+layers_to_truncate            1
+sc_ckpt                       data/cub/sentence_classifier_ckpt.pth
+weights_ckpt                  None
+loss_lambda                   0.2
+embedding_size                1000
+hidden_size                   1000
+num_epochs                    10
+batch_size                    128
+learning_rate                 0.001
+train                         True
+eval_ckpt                     None
+
+Preparing Data ...
+loading annotations into memory...
+Done (t=0.05s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+
+Loading Model ...
+SentenceClassifier(
+  (word_embed): Embedding(978, 1000, padding_idx=0)
+  (lstm): LSTM(1000, 2000, batch_first=True, bidirectional=True)
+  (linear): Linear(in_features=4000, out_features=17, bias=True)
+) 
+
+Training ...
+Epoch [0/10], Step [0/23], Loss: 2.8561, Perplexity: 17.3941
+Epoch [0/10], Step [10/23], Loss: 1.1834, Perplexity: 3.2653
+Epoch [0/10], Step [20/23], Loss: 1.6892, Perplexity: 5.4152
+Epoch [0/10], Step [0/3]
+Evaluation Accuracy: 0.7479452054794521
+Epoch [1/10], Step [0/23], Loss: 0.9261, Perplexity: 2.5247
+Epoch [1/10], Step [10/23], Loss: 1.1219, Perplexity: 3.0708
+Epoch [1/10], Step [20/23], Loss: 1.0883, Perplexity: 2.9691
+Epoch [1/10], Step [0/3]
+Evaluation Accuracy: 0.7589041095890411
+Epoch [2/10], Step [0/23], Loss: 0.7294, Perplexity: 2.0738
+Epoch [2/10], Step [10/23], Loss: 2.1062, Perplexity: 8.2166
+Epoch [2/10], Step [20/23], Loss: 0.9300, Perplexity: 2.5346
+Epoch [2/10], Step [0/3]
+Evaluation Accuracy: 0.7753424657534247
+Epoch [3/10], Step [0/23], Loss: 0.8636, Perplexity: 2.3716
+Epoch [3/10], Step [10/23], Loss: 0.7486, Perplexity: 2.1141
+Epoch [3/10], Step [20/23], Loss: 0.8146, Perplexity: 2.2583
+Epoch [3/10], Step [0/3]
+Evaluation Accuracy: 0.7726027397260274
+Epoch [4/10], Step [0/23], Loss: 0.9059, Perplexity: 2.4741
+Epoch [4/10], Step [10/23], Loss: 0.6577, Perplexity: 1.9303
+Epoch [4/10], Step [20/23], Loss: 0.6630, Perplexity: 1.9407
+Epoch [4/10], Step [0/3]
+Evaluation Accuracy: 0.8273972602739726
+Epoch [5/10], Step [0/23], Loss: 0.3238, Perplexity: 1.3823
+Epoch [5/10], Step [10/23], Loss: 0.4824, Perplexity: 1.6200
+Epoch [5/10], Step [20/23], Loss: 0.3454, Perplexity: 1.4125
+Epoch [5/10], Step [0/3]
+Evaluation Accuracy: 0.8493150684931506
+Epoch [6/10], Step [0/23], Loss: 0.4283, Perplexity: 1.5347
+Epoch [6/10], Step [10/23], Loss: 0.3130, Perplexity: 1.3675
+Epoch [6/10], Step [20/23], Loss: 0.2717, Perplexity: 1.3122
+Epoch [6/10], Step [0/3]
+Evaluation Accuracy: 0.8328767123287671
+Epoch [7/10], Step [0/23], Loss: 0.4616, Perplexity: 1.5865
+Epoch [7/10], Step [10/23], Loss: 0.3354, Perplexity: 1.3986
+Epoch [7/10], Step [20/23], Loss: 0.4714, Perplexity: 1.6022
+Epoch [7/10], Step [0/3]
+Evaluation Accuracy: 0.8575342465753425
+Epoch [8/10], Step [0/23], Loss: 0.3152, Perplexity: 1.3705
+Epoch [8/10], Step [10/23], Loss: 0.3112, Perplexity: 1.3650
+Epoch [8/10], Step [20/23], Loss: 0.3808, Perplexity: 1.4634
+Epoch [8/10], Step [0/3]
+Evaluation Accuracy: 0.8849315068493151
+Epoch [9/10], Step [0/23], Loss: 0.1640, Perplexity: 1.1782
+Epoch [9/10], Step [10/23], Loss: 0.3252, Perplexity: 1.3843
+Epoch [9/10], Step [20/23], Loss: 0.3173, Perplexity: 1.3734
+Epoch [9/10], Step [0/3]
+Evaluation Accuracy: 0.8821917808219178

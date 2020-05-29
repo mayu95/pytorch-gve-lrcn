@@ -53,6 +53,13 @@ class PretrainedModel(nn.Module):
             # Truncate last FC layer(s)
             if model_name.startswith('vgg'):
                 layers = list(model.classifier.children())
+            #  new add else if  
+            #  elif model_name.startswith('resnet'):
+                #  for name, param in model.named_parameters() :
+                    #  param.requires_grad = False
+                    #  if name.startswith('classifier') : 
+                        #  param.requires_grad = True
+                #  layers = list(model.children())
             else:
                 layers = list(model.children())
             trunc = self._get_num_truncated_layers(layers_to_truncate, layer_size)
@@ -63,6 +70,10 @@ class PretrainedModel(nn.Module):
             if model_name.startswith('vgg'):
                 self.pretrained_model = model
                 self.pretrained_model.classifier = nn.Sequential(*modules)
+            #  new add 3 lines
+            #  elif model_name.startswith('resnet'):
+                #  self.pretrained_model = model
+                #  self.pretrained_model.classifier = nn.Sequential(*modules)
             else:
                 self.pretrained_model = nn.Sequential(*modules)
 
