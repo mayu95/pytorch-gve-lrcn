@@ -1,0 +1,18 @@
+Label Name	Number
+normal	2658
+Calcified Granuloma	162
+Thoracic Vertebrae/degenerative	113
+Lung/hypoinflation	105
+Spine/degenerative	78
+Calcinosis	74
+Opacity	64
+Cardiomegaly	56
+Scoliosis	51
+Lung/hyperdistention	46
+Spondylosis	39
+Catheters, Indwelling	38
+Osteophyte	37
+Granulomatous Disease	36
+Surgical Instruments	36
+Fractures, Bone	34
+Nodule	27
