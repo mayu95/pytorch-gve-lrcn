@@ -157,6 +157,11 @@ cp ./checkpoints/sc-iu-D<date>-T<time>-G<GPUid>/best-ckpt.pth ./data/iu/sentence
 python main.py --model gve --dataset iu --sc-ckpt ./data/iu/sentence_classifier_ckpt.pth
 ```
 
+3. Evaluation
+```
+python main.py --model gve --dataset iu --pretrained-model vgg16 --sc-ckpt data/iu/sentence_classifier_ckpt.pth --eval ./checkpoints/gve-iu-D<date>-T<time>-G<GPUid>/best-ckpt.pth > results/
+```
+
 ### Default parameters
 ```
 same to cub
