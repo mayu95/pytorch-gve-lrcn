@@ -143,6 +143,12 @@ This implementation selected 17 unique tags from iu dataset and restructed them 
 see data/iu/
 
 ## Usage
+0.Set environment to gve-lrcn
+```
+pyenv shell anaconda3-5.0.0/envs/gve-lrcn
+```
+
+
 1. Set pretrained-model to IU or CUB
 * Open model/model_loader, line 44. Switch iu or cub
 
